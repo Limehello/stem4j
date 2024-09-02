@@ -39,16 +39,18 @@ public class Position {
         v.setY((float) posY); // Convert double to float
     }
 
-    public void updatePosition(View v) {
-        this.posX = v.getX();
-        this.posY = v.getY();
+    public void resetPosX() {
+        this.posX = 0;
     }
 
-    public void reset(double x, double y) {
+    public void resetPosY() {
+        this.posY = 0;
+    }
+    public void resetPos() {
         this.posX = 0;
         this.posY = 0;
     }
-
+    
     public static Position fromView(View v) {
         return new Position(v.getX(), v.getY());
     }
