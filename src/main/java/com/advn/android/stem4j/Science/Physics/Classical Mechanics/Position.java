@@ -1,4 +1,4 @@
-package com.advn.android.stem4j.physics;
+package com.advn.android.stem4j.science.physics.position;
 
 import android.view.View;
 
