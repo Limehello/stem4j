@@ -34,11 +34,6 @@ public class Position {
         this.posY += deltaY;
     }
 
-    public double distance(Position other) {
-        return Math.sqrt(Math.pow(this.posX - other.getPosX(), 2) +
-                         Math.pow(this.posY - other.getPosY(), 2));
-    }
-
     public void applyTo(View v) {
         v.setX((float) posX); // Convert double to float
         v.setY((float) posY); // Convert double to float
