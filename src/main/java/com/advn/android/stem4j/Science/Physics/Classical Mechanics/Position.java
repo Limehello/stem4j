@@ -18,4 +18,13 @@ public class Position {
 	public void setPosY(double y) {
 		posY = y;
 	}
+	public void changePosX(double x) {
+		posX += x;
+	}
+	public void changePosY(double y) {
+		posY += y;
+	}
+	public double distance(Position other) {
+		return Math.sqrt(Math.pow(posX - , 2));
+	}
 }
