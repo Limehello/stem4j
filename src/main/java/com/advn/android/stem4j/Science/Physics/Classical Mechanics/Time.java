@@ -1,17 +1,24 @@
 package com.advn.android.stem4j;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class Time {
     private long startTime;
     private long pauseTime;
     private long elapsedTime;
     private boolean isRunning;
     private boolean isPaused;
+    private Timer timer;
+    private TimerTask task;
+    private long interval; // Interval in milliseconds
 
     // Constructor to initialize the timer
     public Time() {
         this.elapsedTime = 0;
         this.isRunning = false;
         this.isPaused = false;
+        this.timer = new Timer();
     }
 
     // Start or resume the timer
@@ -24,6 +31,7 @@ public class Time {
             startTime += (System.currentTimeMillis() - pauseTime);
             isPaused = false;
         }
+        startTimerTask(); // Start the task scheduler if interval is set
     }
 
     // Pause the timer
@@ -44,6 +52,7 @@ public class Time {
             }
             isRunning = false;
             isPaused = false;
+            stopTimerTask(); // Stop the task scheduler
         }
     }
 
@@ -58,6 +67,31 @@ public class Time {
         } else {
             return elapsedTime;
         }
+    }
+
+    // Schedule a task to run repeatedly at specified intervals
+    public void scheduleAtFixedRate(long intervalMillis, Runnable task) {
+        this.interval = intervalMillis;
+        this.task = new TimerTask() {
+            @Override
+            public void run() {
+                task.run();
+            }
+        };
+        startTimerTask();
+    }
+
+    private void startTimerTask() {
+        if (interval > 0 && task != null) {
+            timer.scheduleAtFixedRate(task, interval, interval);
+        }
+    }
+
+    private void stopTimerTask() {
+        if (task != null) {
+            task.cancel();
+        }
+        timer.purge(); // Clean up canceled tasks
     }
 
     public void sleep(double duration) {
